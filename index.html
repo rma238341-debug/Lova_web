@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forever Love</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+text-align:center;
+color:white;
+background:black;
+overflow:hidden;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+/* stars background */
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:0.2;}
+to{opacity:1;}
+}
+
+/* glowing heart button */
+
+.start{
+font-size:70px;
+background:none;
+border:none;
+cursor:pointer;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.3);}
+100%{transform:scale(1);}
+}
+
+#letter{
+width:85%;
+max-width:500px;
+font-size:24px;
+margin-top:20px;
+color:#ffcccc;
+}
+
+.rose{
+position:absolute;
+font-size:24px;
+animation:fall 6s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px);}
+100%{transform:translateY(100vh);}
+}
+
+.fire{
+position:absolute;
+font-size:30px;
+animation:explode 2s forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(0);}
+100%{transform:scale(2);opacity:0;}
+}
+
+#proposal{display:none;}
+#game{display:none;}
+#photos{display:none;}
+
+button{
+padding:10px 20px;
+font-size:18px;
+border-radius:20px;
+border:none;
+cursor:pointer;
+margin:10px;
+}
+
+img{
+width:220px;
+border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Enter the secret password ❤️</h2>
+
+<input id="pass" type="password">
+<button onclick="checkPass()">Unlock Love</button>
+
+<div id="main" style="display:none">
+
+<h2>Tap the glowing heart 💘</h2>
+<button class="start" onclick="startLove()">💘</button>
+
+<div id="letter"></div>
+
+<div id="photos">
+<h3>Our Love Story 📸</h3>
+<img id="slide" src="https://picsum.photos/300/200?1">
+</div>
+
+<div id="proposal">
+<h2>Will you be mine forever? 💍</h2>
+<button onclick="yesLove()">YES ❤️</button>
+<button onclick="noLove()">NO 😢</button>
+</div>
+
+<div id="game">
+<h3>Love Score Game ❤️</h3>
+<button onclick="addLove()">💖</button>
+<p id="score">Love Score: 0</p>
+</div>
+
+<audio id="music">
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+</div>
+
+<script>
+
+/* star background */
+
+for(let i=0;i<100;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+document.body.appendChild(star);
+}
+
+/* password */
+
+function checkPass(){
+let p=document.getElementById("pass").value;
+
+if(p=="love"){
+document.getElementById("main").style.display="block";
+}else{
+alert("Wrong password ❤️");
+}
+}
+
+/* typing */
+
+let msg="From the first moment I saw you, something magical happened. You make my world brighter, my smile bigger, and my heart happier. I LOVE YOU ❤️";
+let i=0;
+
+function typeText(){
+if(i<msg.length){
+document.getElementById("letter").innerHTML+=msg.charAt(i);
+i++;
+setTimeout(typeText,40);
+}
+}
+
+/* roses */
+
+function roses(){
+for(let r=0;r<20;r++){
+let rose=document.createElement("div");
+rose.innerHTML="🌹";
+rose.className="rose";
+rose.style.left=Math.random()*100+"vw";
+rose.style.animationDuration=(3+Math.random()*4)+"s";
+document.body.appendChild(rose);
+}
+}
+
+/* fireworks */
+
+function fireworks(){
+for(let f=0;f<25;f++){
+let fire=document.createElement("div");
+fire.innerHTML="💖";
+fire.className="fire";
+fire.style.left=Math.random()*100+"vw";
+fire.style.top=Math.random()*100+"vh";
+document.body.appendChild(fire);
+setTimeout(()=>{fire.remove();},2000);
+}
+}
+
+/* slideshow */
+
+let slide=1;
+
+function slideShow(){
+let img=document.getElementById("slide");
+slide++;
+img.src="https://picsum.photos/300/200?"+slide;
+
+if(slide<6){
+setTimeout(slideShow,2000);
+}
+}
+
+/* start */
+
+function startLove(){
+
+document.getElementById("music").play();
+
+typeText();
+roses();
+
+setTimeout(()=>{
+document.getElementById("photos").style.display="block";
+slideShow();
+},3000);
+
+setTimeout(()=>{
+document.getElementById("proposal").style.display="block";
+},8000);
+
+}
+
+/* proposal */
+
+function yesLove(){
+fireworks();
+document.getElementById("game").style.display="block";
+}
+
+function noLove(){
+alert("My heart will keep trying ❤️");
+}
+
+/* game */
+
+let score=0;
+
+function addLove(){
+score++;
+document.getElementById("score").innerHTML="Love Score: "+score;
+}
+
+</script>
+
+</body>
+</html>
